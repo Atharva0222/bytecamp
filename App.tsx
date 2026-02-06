@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Countdown from './components/Countdown';
 import About from './components/About';
 import Theme from './components/Theme';
 import Tracks from './components/Tracks';
@@ -16,6 +17,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <Countdown />
         <About />
         <Theme />
         <Tracks />
