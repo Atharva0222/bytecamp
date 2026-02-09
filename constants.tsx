@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brain, Globe, Cpu, HeartPulse, Trophy, Clock, MapPin, Users, Calendar, Shield, Zap } from 'lucide-react';
+import { Brain, Globe, Cpu, HeartPulse, Trophy, Clock, MapPin, Users, Calendar, Shield, Zap, Diamond, Star, Award } from 'lucide-react';
 
 export const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -7,43 +7,54 @@ export const NAV_LINKS = [
   { label: 'Tracks', href: '#tracks' },
   { label: 'Timeline', href: '#timeline' },
   { label: 'Prizes', href: '#prizes' },
+  { label: 'Sponsors', href: '#pricing' }, // Updated link
   { label: 'Location', href: '#location' },
 ];
 
 export const TRACKS_CARDS = [
   {
-    title: 'Generative AI',
+    title: 'Gen AI',
     description: 'Push the boundaries of creativity and logic using LLMs, diffusion models, and next-gen AI tools.',
-    icon: <Brain className="w-6 h-6" />,
-    color: 'text-purple-400',
-    border: 'hover:border-purple-500/50',
-    bg: 'hover:bg-purple-500/10'
+    icon: <Brain className="w-8 h-8" />,
+    color: 'teal',
+    colorClass: 'text-teal-400',
+    cardImage: '/assets/uno-cards/Gen-ai.png',
+    cardBackImage: '/assets/uno-cards/Gen-ai-back.png',
+    borderColor: 'border-teal-500'
   },
   {
-    title: 'FinTech Revolution',
+    title: 'FinTech',
     description: 'Reimagine the future of finance, blockchain payments, and decentralized economies.',
-    icon: <Globe className="w-6 h-6" />,
-    color: 'text-green-400',
-    border: 'hover:border-green-500/50',
-    bg: 'hover:bg-green-500/10'
+    icon: <Globe className="w-8 h-8" />,
+    color: 'green',
+    colorClass: 'text-green-400',
+    cardImage: '/assets/uno-cards/Fintech.png',
+    cardBackImage: '/assets/uno-cards/Fintech-back.png',
+    borderColor: 'border-green-500'
   },
   {
-    title: 'Health & Wellness',
-    description: 'Develop solutions that improve patient care, mental health, or fitness tracking using IoT.',
-    icon: <HeartPulse className="w-6 h-6" />,
-    color: 'text-red-400',
-    border: 'hover:border-red-500/50',
-    bg: 'hover:bg-red-500/10'
+    title: 'Sustainability',
+    description: 'Build eco-friendly solutions that tackle climate change, renewable energy, and sustainable living.',
+    icon: <Cpu className="w-8 h-8" />,
+    color: 'yellow',
+    colorClass: 'text-yellow-400',
+    cardImage: '/assets/uno-cards/Sustainability.png',
+    cardBackImage: '/assets/uno-cards/Sustainability-back.png',
+    borderColor: 'border-yellow-500'
   },
   {
-    title: 'Open Innovation',
-    description: 'Have a wild idea? This track is for projects that defy categories and break the mold.',
-    icon: <Cpu className="w-6 h-6" />,
-    color: 'text-cyan-400',
-    border: 'hover:border-cyan-500/50',
-    bg: 'hover:bg-cyan-500/10'
+    title: 'HealthTech',
+    description: 'Develop solutions that improve patient care, mental health, and healthcare accessibility.',
+    icon: <HeartPulse className="w-8 h-8" />,
+    color: 'red',
+    colorClass: 'text-red-400',
+    cardImage: '/assets/uno-cards/Healthtech.png',
+    cardBackImage: '/assets/uno-cards/Healthtech-back.png',
+    borderColor: 'border-red-500'
   }
 ];
+
+
 
 export const TIMELINE_EVENTS = [
   {
@@ -153,32 +164,33 @@ export const SOLUTIONS_CARDS = [
   }
 ];
 
-export const PRICING_PLANS = [
+export const SPONSORSHIP_TIERS = [
   {
-    name: 'Starter',
-    price: '$49',
-    period: '/mo',
-    features: ['Basic Analytics', '5 Projects', 'Community Support', '1GB Storage'],
-    buttonText: 'Get Started',
-    highlight: false,
-    description: 'Perfect for individuals and hobbyists.'
+    name: 'Silver',
+    price: '₹20,000',
+    features: ['Logo on Website', 'Social Media Shoutout', '1 Mentor Pass', 'Swag Distribution', 'Discord Role'],
+    icon: Shield,
+    color: 'text-gray-300',
+    gradient: 'from-gray-500 to-slate-300',
+    border: 'border-gray-500/30'
   },
   {
-    name: 'Pro',
-    price: '$149',
-    period: '/mo',
-    features: ['Advanced Analytics', 'Unlimited Projects', 'Priority Support', '10GB Storage'],
-    buttonText: 'Start Free Trial',
-    highlight: true,
-    description: 'Best for growing teams and startups.'
+    name: 'Gold',
+    price: '₹50,000',
+    features: ['Booth Space (10x10)', 'Speaking Slot (5min)', 'Resume Database Access', '3 Mentor Passes', 'Custom Challenge'],
+    icon: Zap,
+    color: 'text-yellow-400',
+    gradient: 'from-yellow-500 to-amber-300',
+    border: 'border-yellow-500/30',
+    highlight: true
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    features: ['Custom Solutions', 'Dedicated Support', 'SLA Guarantee', 'Unlimited Storage'],
-    buttonText: 'Contact Sales',
-    highlight: false,
-    description: 'For large organizations with specific needs.'
+    name: 'Platinum',
+    price: '₹1,00,000',
+    features: ['Title Sponsor Status', 'Keynote Session', 'Jury Member Seat', 'Private Interview Room', 'Brand in Aftermovie'],
+    icon: Diamond,
+    color: 'text-cyan-300',
+    gradient: 'from-cyan-500 to-blue-300',
+    border: 'border-cyan-500/30'
   }
 ];

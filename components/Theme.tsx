@@ -1,10 +1,26 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Theme() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const xLeft = useTransform(scrollYProgress, [0, 1], ["50%", "-50%"]);
+  
   return (
-    <section id="theme" className="py-24 bg-zinc-950 border-y border-white/5">
-      <div className="max-w-4xl mx-auto px-6 text-center">
+    <section ref={ref} id="theme" className="py-24 bg-zinc-950 border-y border-white/5 relative overflow-hidden">
+      
+      {/* Background Parallax Text */}
+      <div className="absolute top-1/2 -translate-y-1/2 w-full select-none pointer-events-none opacity-[0.03]">
+        <motion.div style={{ x: xLeft }} className="whitespace-nowrap text-[20vw] font-black leading-none text-white">
+          SUSTAINABILITY INNOVATION FUTURE
+        </motion.div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <motion.span 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

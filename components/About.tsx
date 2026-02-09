@@ -1,13 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function About() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+
   return (
-    <section id="about" className="py-32 bg-black relative overflow-hidden">
+    <section ref={ref} id="about" className="py-32 bg-black relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-900/10 to-transparent pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <motion.div
+          style={{ y: textY }}
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -38,6 +48,7 @@ export default function About() {
         </motion.div>
 
         <motion.div
+          style={{ y: imageY }}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}

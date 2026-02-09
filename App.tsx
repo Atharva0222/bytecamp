@@ -3,11 +3,12 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Countdown from './components/Countdown';
 import About from './components/About';
-import Theme from './components/Theme';
+
 import Tracks from './components/Tracks';
 import Timeline from './components/Timeline';
 import Prizes from './components/Prizes';
 import Team from './components/Team';
+import Advantages from './components/Advantages';
 import Location from './components/Location';
 import Footer from './components/Footer';
 
@@ -19,11 +20,12 @@ function App() {
         <Hero />
         <Countdown />
         <About />
-        <Theme />
+
         <Tracks />
         <Timeline />
         <Prizes />
         <Team />
+        <Advantages />
         <Location />
       </main>
       <Footer />

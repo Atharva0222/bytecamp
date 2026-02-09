@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 const ShootingGrid = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -105,56 +105,98 @@ const ShootingGrid = () => {
   return <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />;
 };
 
-const MumbaiSilhouette = () => (
-  <div className="absolute bottom-0 left-0 right-0 w-full h-32 md:h-48 z-0 pointer-events-none opacity-20 select-none overflow-hidden">
-    <svg viewBox="0 0 1200 200" className="w-full h-full" preserveAspectRatio="none">
-       <defs>
-         <linearGradient id="skyline-fade" x1="0" y1="0" x2="0" y2="1">
-           <stop offset="0%" stopColor="white" stopOpacity="0.8" />
-           <stop offset="100%" stopColor="white" stopOpacity="0" />
-         </linearGradient>
-       </defs>
-       {/* Sea Link Pylons */}
-       <path d="M300 200 L300 50 L310 50 L310 200" fill="white" />
-       <path d="M600 200 L600 80 L610 80 L610 200" fill="white" />
+// Separated components for parallax layers
+
+const SeaLink = ({ y }: { y: MotionValue<number> }) => (
+  <motion.div 
+    style={{ y }} 
+    className="absolute bottom-0 left-0 right-0 w-full h-48 md:h-64 z-0 pointer-events-none opacity-20 select-none overflow-hidden"
+  >
+    <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="none">
+       {/* Sea Link Pylons - Background Layer */}
+       <path d="M100 300 L100 50 L120 50 L120 300" fill="white" opacity="0.5" />
+       <path d="M500 300 L500 80 L520 80 L520 300" fill="white" opacity="0.5" />
        
        {/* Cables */}
-       <path d="M305 50 L150 200" stroke="white" strokeWidth="1" />
-       <path d="M305 50 L200 200" stroke="white" strokeWidth="1" />
-       <path d="M305 50 L250 200" stroke="white" strokeWidth="1" />
-       <path d="M305 50 L360 200" stroke="white" strokeWidth="1" />
-       <path d="M305 50 L410 200" stroke="white" strokeWidth="1" />
-       <path d="M305 50 L460 200" stroke="white" strokeWidth="1" />
+       <path d="M110 50 L-50 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M110 50 L0 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M110 50 L50 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M110 50 L200 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M110 50 L250 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M110 50 L300 300" stroke="white" strokeWidth="1" opacity="0.3" />
        
-       <path d="M605 80 L500 200" stroke="white" strokeWidth="1" />
-       <path d="M605 80 L550 200" stroke="white" strokeWidth="1" />
-       <path d="M605 80 L660 200" stroke="white" strokeWidth="1" />
-       <path d="M605 80 L710 200" stroke="white" strokeWidth="1" />
-       
-       {/* Gateway of India Arch (Abstract) */}
-       <path d="M900 200 L900 120 L920 120 L920 140 L960 140 L960 120 L980 120 L980 200" fill="white" />
-       
-       {/* Other buildings */}
-       <rect x="800" y="160" width="30" height="40" fill="white" />
-       <rect x="840" y="140" width="20" height="60" fill="white" />
-       <rect x="1000" y="100" width="40" height="100" fill="white" />
-       
-       {/* Ground/Sea Line */}
-       <rect x="0" y="198" width="1200" height="2" fill="white" />
+       <path d="M510 80 L350 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M510 80 L400 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M510 80 L450 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M510 80 L600 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M510 80 L650 300" stroke="white" strokeWidth="1" opacity="0.3" />
+       <path d="M510 80 L700 300" stroke="white" strokeWidth="1" opacity="0.3" />
     </svg>
-  </div>
+  </motion.div>
+);
+
+const GatewayOfIndia = ({ y }: { y: MotionValue<number> }) => (
+  <motion.div 
+    style={{ y }} 
+    className="absolute bottom-0 left-0 right-0 w-full h-40 md:h-56 z-0 pointer-events-none opacity-30 select-none overflow-hidden"
+  >
+    <svg viewBox="0 0 1200 300" className="w-full h-full" preserveAspectRatio="none">
+       {/* Gateway of India - Right Side */}
+       <g transform="translate(800, 100) scale(1.5)">
+          {/* Main Body */}
+          <rect x="0" y="40" width="160" height="100" fill="white" />
+          
+          {/* Central Arch */}
+          <path d="M50 140 L50 80 A 30 30 0 0 1 110 80 L110 140 Z" fill="black" />
+          
+          {/* Side Arches */}
+          <path d="M15 140 L15 100 A 10 10 0 0 1 35 100 L35 140 Z" fill="black" opacity="0.8" />
+          <path d="M125 140 L125 100 A 10 10 0 0 1 145 100 L145 140 Z" fill="black" opacity="0.8" />
+          
+          {/* Turrets */}
+          <rect x="0" y="30" width="20" height="10" fill="white" />
+          <rect x="40" y="30" width="20" height="10" fill="white" />
+          <rect x="100" y="30" width="20" height="10" fill="white" />
+          <rect x="140" y="30" width="20" height="10" fill="white" />
+          
+          {/* Top Domes/Decor */}
+          <path d="M0 30 L10 20 L20 30 Z" fill="white" />
+          <path d="M40 30 L50 20 L60 30 Z" fill="white" />
+          <path d="M100 30 L110 20 L120 30 Z" fill="white" />
+          <path d="M140 30 L150 20 L160 30 Z" fill="white" />
+
+          {/* Base Line */}
+          <rect x="-500" y="138" width="2000" height="4" fill="white" opacity="0.8" />
+       </g>
+    </svg>
+  </motion.div>
 );
 
 export default function Hero() {
+  const { scrollY } = useScroll();
+  
+  // Parallax effects
+  const textY = useTransform(scrollY, [0, 500], [0, 200]); // Text moves somewhat fast
+  const gatewayY = useTransform(scrollY, [0, 500], [0, 100]); // Gateway moves slower (mid-ground)
+  const sealinkY = useTransform(scrollY, [0, 500], [0, 50]);  // Sealink moves slowest (background)
+  
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center pt-20 overflow-hidden bg-black">
       <ShootingGrid />
-      <MumbaiSilhouette />
+      
+      {/* Background Layers with Parallax */}
+      <SeaLink y={sealinkY} />
+      <GatewayOfIndia y={gatewayY} />
 
       {/* Glow Effects */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8">
+      <motion.div 
+        style={{ y: textY, opacity }}
+        className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8"
+      >
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -224,7 +266,7 @@ export default function Hero() {
             </button>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
       
       {/* Scroll indicator */}
       <motion.div 
